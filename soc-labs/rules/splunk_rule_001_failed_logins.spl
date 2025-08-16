@@ -1,0 +1,7 @@
+# SPLUNK - Failed login burst (Windows 4625 OR Linux SSH from sourcetype)
+# Tune "index", "sourcetype", and fields as per your environment.
+# Window: last 5 minutes; Threshold: >10 events per IP
+index=* (EventCode=4625 OR EventID=4625 OR (sourcetype=linux_secure "Failed password")) 
+| eval src_ip=coalesce(IpAddress, src_ip, src, host_ip)
+| stats count AS failures BY src_ip
+| where failures > 10

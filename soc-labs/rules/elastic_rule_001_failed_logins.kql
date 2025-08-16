@@ -1,0 +1,4 @@
+// ELASTIC KQL - Failed login burst (Windows 4625 or Linux SSH)
+// Adjust index pattern (e.g., logs-*) and field names as needed.
+// Example visualization: terms aggregation on source.ip with date histogram, then a threshold alert.
+(event.code: "4625" OR message: "Failed password") and source.ip:*
